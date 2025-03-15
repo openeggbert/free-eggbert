@@ -5,11 +5,10 @@ typedef struct IUnknown IUnknown;
 
 
 #include <windows.h>
-#include <stdlib.h>
 #include <stdio.h>
 //#include <ddraw.h>
-#include <direct.h>
-#include <io.h>
+
+#include "direct.h"
 #include "def.h"
 #include "resource.h"
 //#include "pixmap.h"
@@ -2067,6 +2066,7 @@ void CEvent::ReadInput()
 		joy.dwSize = 52;
 		joy.dwFlags = 255;
 
+		#ifdef joystick
 		joyPos = joyGetPosEx(bJoyID, &joy);
 
 		if (joyPos == 0)
@@ -2129,6 +2129,7 @@ void CEvent::ReadInput()
 			m_pDecor->SetJoystickEnable(TRUE);
 			return;
 		}
+#endif
 	}
 	return;
 }
@@ -4729,7 +4730,7 @@ BOOL CEvent::ChangePhase(UINT phase)
 		char temp[_MAX_FNAME];
 
 		m_nbChoices = 0;
-		hFile = _findfirst("\\User\\*.xch", &fBuffer);
+		hFile = my_findfirst("\\User\\*.xch", &fBuffer);
 		if (hFile != -1)
 		{
 			do
@@ -4829,7 +4830,7 @@ BOOL CEvent::ChangePhase(UINT phase)
 		int numDevs;
 		char pBuff[400];
 		DescInfo* info;
-		numDevs = joyGetNumDevs();
+		numDevs = 1;//joyGetNumDevs();
 		/*
 		if (numDevs > 0)
 		{
@@ -5158,8 +5159,8 @@ void CEvent::DemoRecStop()
 
 	if ( m_pDemoBuffer != NULL )
 	{
-		DeleteFileA("data\\demo.3d.blp");
-		file = fopen("data\\demo.3d.blp", "wb");
+		DeleteFileA("data/demo.3d.blp");
+		file = fopen("data/demo.3d.blp", "wb");
 		if ( file != NULL )
 		{
 			memset(&header, 0, sizeof(DemoHeader));
@@ -5190,7 +5191,7 @@ BOOL CEvent::DemoPlayStart()
 	if (m_pDemoBuffer == NULL)  return FALSE;
 	memset(m_pDemoBuffer, 0, MAXDEMO * sizeof(DemoEvent));
 
-	sprintf(filename, "data\\demo%.3d.blp", m_demoNumber);
+	sprintf(filename, "data/demo%.3d.blp", m_demoNumber);
 	AddCDPath(filename);  // ajoute l'acc�s au CD-Rom
 	file = fopen(filename, "rb");
 	if (file == NULL)
@@ -5327,7 +5328,7 @@ BOOL CEvent::WriteInfo(int gamer)
 	char		text[100];
 
 	if (m_playerIndex = 0) return TRUE;
-	sprintf(filename, "data\\info%.3d.blp", gamer);
+	sprintf(filename, "data/info%.3d.blp", gamer);
 	AddUserPath(filename);
 
 	file = fopen(filename, "wb");
@@ -5382,7 +5383,7 @@ BOOL CEvent::ReadInfo(int gamer)
 
 	LoadString(TX_READINFO, buffer, 100);
 	sprintf(m_gamerName, buffer, gamer);
-	sprintf(filename, "data\\info%.3d.blp", gamer);
+	sprintf(filename, "data/info%.3d.blp", gamer);
 	AddUserPath(filename);
 
 
@@ -5714,7 +5715,7 @@ BOOL CEvent::ClearGamer(int gamer)
 	char filename[260];
 
 	m_playerIndex = 0;
-	sprintf(filename, "data\\info%.3d.blp", gamer);
+	sprintf(filename, "data/info%.3d.blp", gamer);
 	AddUserPath(filename);
 	remove(filename);
 	return TRUE;
@@ -5726,7 +5727,7 @@ BOOL CEvent::CheckWorld1()
 	FILE* file;
 	char buf[260];
 
-	strcpy(buf, "data\\world001.blp");
+	strcpy(buf, "data/world001.blp");
 	AddCDPath(buf);
 	file = fopen(buf, "rb");
 	if (file)

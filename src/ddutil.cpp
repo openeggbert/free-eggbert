@@ -15,7 +15,7 @@ typedef struct IUnknown IUnknown;
 #include <windowsx.h>
 #include <ddraw.h>
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "ddutil.h"
 #include "misc.h"
 

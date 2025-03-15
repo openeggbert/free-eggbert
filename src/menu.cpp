@@ -4,7 +4,7 @@
 typedef struct IUnknown IUnknown;
 
 #include <windows.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <stdio.h>
 #include <ddraw.h>
 #include "def.h"

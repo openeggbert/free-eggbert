@@ -3,7 +3,7 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include <WTypes.h>
+#include <wtypes.h>
 
 #pragma once
 

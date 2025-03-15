@@ -71,6 +71,7 @@ protected:
 	HSTREAM					m_hBassStream;
 #else
 	UINT                    m_MidiDeviceID;
+	char                    m_MIDIFilename[50];
 #endif
 	int						m_music;
 	int                     m_audioVolume;

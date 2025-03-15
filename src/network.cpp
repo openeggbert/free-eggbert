@@ -51,20 +51,20 @@ static BOOL EnumProvidersCallback(LPGUID lpguidSP, LPSTR lpSPName,
 
 BOOL CNetwork::EnumProviders()
 {
-	FreeProviderList();
-	m_providers.nb = 0;
-	m_providers.pList = (NamedGUID(*)[MAXSESSION]) malloc(MAXSESSION * sizeof(NamedGUID));
-
-	if (!m_providers.pList) return FALSE;
-#ifdef _UNICODE
-	if (DirectPlayEnumerate((LPDPENUMDPCALLBACK)EnumProvidersCallback, &m_providers) != DP_OK)
-#else
-	if (DirectPlayEnumerate((LPDPENUMDPCALLBACKA)EnumProvidersCallback, &m_providers) != DP_OK)
-#endif
-	{
-		FreeProviderList();
-		return FALSE;
-	}
+// 	FreeProviderList();
+// 	m_providers.nb = 0;
+// 	m_providers.pList = (NamedGUID(*)[MAXSESSION]) malloc(MAXSESSION * sizeof(NamedGUID));
+//
+// 	if (!m_providers.pList) return FALSE;
+// #ifdef _UNICODE
+// 	if (DirectPlayEnumerateW((LPDPENUMDPCALLBACK)EnumProvidersCallback, &m_providers) != DP_OK)
+// #else
+// 	if (DirectPlayEnumerateA((LPDPENUMDPCALLBACKA)EnumProvidersCallback, &m_providers) != DP_OK)
+// #endif
+// 	{
+// 		FreeProviderList();
+// 		return FALSE;
+// 	}
 	return TRUE;
 }
 
@@ -81,20 +81,20 @@ char* CNetwork::GetProviderName(int index)
 
 BOOL CNetwork::CreateProvider(int index)
 {
-	LPDIRECTPLAY lpDP;
-	BOOL bOK = FALSE;
-
-	if (index >= m_providers.nb) return FALSE;
-
-	if (DirectPlayCreate(&m_providers.pList[index]->guid, &lpDP, 0) == DP_OK)
-	{
-		if (lpDP->QueryInterface(IID_IDirectPlay2A, (LPVOID*)&m_pDP) == DP_OK)
-		{
-			return TRUE;
-		}
-	}
-
-	if (lpDP) lpDP->Release();
+	// LPDIRECTPLAY lpDP;
+	// BOOL bOK = FALSE;
+	//
+	// if (index >= m_providers.nb) return FALSE;
+	//
+	// if (DirectPlayCreate(&m_providers.pList[index]->guid, &lpDP, 0) == DP_OK)
+	// {
+	// 	if (lpDP->QueryInterface(IID_IDirectPlay2A, (LPVOID*)&m_pDP) == DP_OK)
+	// 	{
+	// 		return TRUE;
+	// 	}
+	// }
+	//
+	// if (lpDP) lpDP->Release();
 	return FALSE;
 }
 
@@ -158,6 +158,8 @@ char* CNetwork::GetSessionName(int index)
 	if (index >= m_sessions.nb) return NULL;
 	return (*m_sessions.pList)[index].name;
 }
+
+#define DPOPEN_OPENSESSION          DPOPEN_JOIN
 
 BOOL CNetwork::JoinSession(int index, char* pPlayerName)
 {

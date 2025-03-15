@@ -7,7 +7,7 @@ typedef struct IUnknown IUnknown;
 #include <dsound.h>
 #include <ddraw.h>
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "def.h"
 
 // Global Variables
@@ -86,6 +86,9 @@ int Random(int min, int max)
     return (int)n;
 }
 
+// Declare _pgmptr to mimic the Windows CRT version
+extern char _pgmptr[MAX_PATH];
+
 void GetCurrentDir(char *pName, int lg)
 {
 	int		i;
@@ -137,7 +140,7 @@ void AddCDPath(char *pFilename)
 #else
 	if ( !bDaniel &&
 		 (strstr(pFilename, "image08\\") == pFilename ||
-          strstr(pFilename, "data\\") == pFilename    ||
+          strstr(pFilename, "data/") == pFilename    ||
 		  strstr(pFilename, "image16\\") == pFilename ||
           strstr(pFilename, "sound\\")) )
 	{

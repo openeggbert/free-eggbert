@@ -2,7 +2,7 @@
 #ifndef DECOR_H
 #define DECOR_H
 
-#include "DEF.H"
+#include "def.h"
 #include "jauge.h"
 #include "sound.h"
 #include "pixmap.h"

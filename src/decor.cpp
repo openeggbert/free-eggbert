@@ -593,7 +593,7 @@ void CDecor::Build(RECT rect)
 			m_pPixmap->QuickIcon(m_moveObject[i].channel, m_moveObject[i].icon, tinyPoint);
 			if (m_moveObject[i].type == TYPE_DRINK)
 			{
-				for (int L = 0; L < sizeof(table_drinkoffset) / sizeof(int); L++)
+				for (int L = 0; L < table_drinkoffset_size; L++)
 				{
 					int num4 = (m_time + table_drinkoffset[L]) % 50;
 					int rank = table_drinkeffect[num4 % 5];

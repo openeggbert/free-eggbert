@@ -1,6 +1,6 @@
 #include <windows.h>
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK WindowProc_(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
         case WM_ERASEBKGND:
             return 1; // Zabrání blikání
@@ -22,11 +22,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 }
 
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+int WINAPI WinMain_(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     const char CLASS_NAME[] = "WineGameWindow";
 
     WNDCLASS wc = {};
-    wc.lpfnWndProc = WindowProc;
+    wc.lpfnWndProc = WindowProc_;
     wc.hInstance = hInstance;
     wc.lpszClassName = CLASS_NAME;
 

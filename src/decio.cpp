@@ -12,11 +12,11 @@ void CDecor::GetMissionPath(char* str, int user, int mission, BOOL bUser)
 {
 	if (bUser != 0)
 	{
-		sprintf(str, "data\\%.3d-%.3d.blp", user, mission);
+		sprintf(str, "data/%.3d-%.3d.blp", user, mission);
 		AddUserPath(str);
 		return;
 	}
-	sprintf(str, "data\\world%.3d.blp", mission);
+	sprintf(str, "data/world%.3d.blp", mission);
 	AddUserPath(str);
 	return;
 }
@@ -204,7 +204,7 @@ BOOL CDecor::CurrentWrite(int gamer, int mission, BOOL bUser)
 	int nb, i, x, y;
 	int majRev, minRev;
 
-	sprintf(filename, "data\\s%.3d-%.3d.blp", gamer, mission);
+	sprintf(filename, "data/s%.3d-%.3d.blp", gamer, mission);
 	AddUserPath(filename);
 
 	file = fopen(filename, "wb");
@@ -344,7 +344,7 @@ BOOL CDecor::CurrentRead(int gamer, int mission, BOOL *pbMission, BOOL *pbPrivat
 	int majRev, minRev;
 	int nb, i, x, y;
 
-	sprintf(filename, "data\\s%.3d-%.3d.blp", gamer, mission);
+	sprintf(filename, "data/s%.3d-%.3d.blp", gamer, mission);
 	AddUserPath(filename);
 
 	file = fopen(filename, "rb");
@@ -374,7 +374,7 @@ BOOL CDecor::MissionStart(int gamer, int mission, char* param3)
 	int majRev, minRev;
 	int nb, i, x, y;
 
-	sprintf(filename, "data\\s%.3d-%.3d.blp", gamer, mission);
+	sprintf(filename, "data/s%.3d-%.3d.blp", gamer, mission);
 	AddUserPath(filename);
 	file = fopen(filename, "wb");
 	if (file == NULL) goto error;

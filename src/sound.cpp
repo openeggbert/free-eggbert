@@ -286,7 +286,7 @@ CSound::CSound()
 	m_lastMidiVolume = 0;
 	m_nbSuspendSkip = 0;
 	BASS_Init(-1, 22050, BASS_DEVICE_FREQ, m_hWnd, NULL);
-	BASS_SetConfigPtr(BASS_CONFIG_MIDI_DEFFONT, "data\\GM.DLS.sf2");
+	BASS_SetConfigPtr(BASS_CONFIG_MIDI_DEFFONT, "data/GM.DLS.sf2");
 
 	m_lpDS = NULL;
 
