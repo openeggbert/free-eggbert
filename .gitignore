@@ -1,3 +1,8 @@
 build*
 .idea*
 cmake-build-debug/*
+/IMAGE08
+/IMAGE16
+/SOUND
+/MOVIE
+/DATA

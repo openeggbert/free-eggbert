@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(WINELIB_DEMO LANGUAGES CXX)
+project(SPEEDY_BLUPI_WINDOWS LANGUAGES CXX)
 
 # Setting Wine compilator (target is Linux)
 set(CMAKE_CXX_COMPILER wineg++-stable)
@@ -13,7 +13,10 @@ link_directories(/usr/lib/wine)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 # Adding source code files
-add_executable(WINELIB_DEMO main.cpp)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+add_executable(SPEEDY_BLUPI_WINDOWS ${SOURCES})
+
+target_include_directories(SPEEDY_BLUPI_WINDOWS PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Adding Wine libraries
-target_link_libraries(WINELIB_DEMO PRIVATE uuid user32 gdi32 ole32 oleaut32 shell32)
+target_link_libraries(SPEEDY_BLUPI_WINDOWS PRIVATE uuid user32 gdi32 ole32 oleaut32 shell32)
