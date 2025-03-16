@@ -5,7 +5,6 @@
 
 typedef struct IUnknown IUnknown;
 
-#include<stdio.h>
 #include <windows.h>
 #include <windowsx.h>
 #include <wtypes.h>
@@ -35,7 +34,12 @@ typedef struct IUnknown IUnknown;
 #define TITLE		"Blupi"
 #endif
 
+#ifdef WINELIB
 #define MMTIMER     FALSE
+#else
+#define MMTIMER     TRUE
+#endif
+
 #define THREAD		FALSE
 
 // Variables Globals
@@ -82,7 +86,6 @@ int GetNum(char *p)
 
 BOOL ReadConfig(LPSTR lpCmdLine)
 {
-	printf("Calling ReadConfig");
 	FILE*       file = NULL;
 	char        buffer[200];
 	char*       pText;
@@ -91,10 +94,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 	MEMORYSTATUS mem;
 
 	file = fopen("data/config.def", "rb");
-	if (file == NULL) {
-		printf("b93");
-		return FALSE;
-	}
+	if (file == NULL) return FALSE;
 	nb = fread(buffer, sizeof(char), 200 - 1, file);
 	buffer[nb] = 0;
 	fclose(file);
@@ -113,7 +113,6 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 			g_CDPath[i] = 0;
 		}
 #else
-		printf("b116");
 		return FALSE;
 #endif // _DEMO
 	}
@@ -143,10 +142,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 		drive[2] = '\\';
 		drive[3] = 0;
 		nb = GetDriveType(drive);
-		if (nb != DRIVE_CDROM) {
-			printf("b146");
-			return FALSE;
-		}
+		if (nb != DRIVE_CDROM) return FALSE;
 	}
 #endif // !_DEMO && !_EGAMES
 #endif // _CD
@@ -765,7 +761,6 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 	if (!bOK)  // config.def pas correct ?
 	{
-		printf("\n\nabc\n\n");
 		return InitFail("Game not correctly installed", FALSE);
 	}
 
@@ -831,14 +826,18 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	return TRUE;
 }
 
+#ifdef WINELIB
 // Define _pgmptr as a global variable
 char _pgmptr[MAX_PATH];
+#endif
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine, int nCmdShow)
 {
 
+#ifdef WINELIB
 	GetModuleFileNameA(NULL, _pgmptr, MAX_PATH);
+#endif
 
 	MSG		msg;
 	LPTIMECALLBACK timeStep;

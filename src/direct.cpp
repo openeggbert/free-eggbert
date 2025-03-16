@@ -1,13 +1,17 @@
+#ifdef WINELIB
+
 #include <iostream>
 #include <filesystem>
 #include <string>
 #include "direct.h"
 #include <cstring>
 
-
+/*
+ *This is partial implementation of direct.h for WineLib
+ */
 
 // Function that mimics _findfirst
-int my_findfirst(const std::string& pattern, _finddata_t* fBuffer) {
+int _findfirst(const std::string& pattern, _finddata_t* fBuffer) {
     namespace fs = std::filesystem;
 
     // Get the directory path from the pattern
@@ -73,4 +77,4 @@ int _mkdir(const char* path) {
 }
 
 
-
+#endif

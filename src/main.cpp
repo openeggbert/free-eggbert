@@ -1,4 +1,9 @@
+#ifdef WINELIB
 #include <windows.h>
+
+/*
+ * DirectX demo
+ */
 
 LRESULT CALLBACK WindowProc_(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
@@ -49,3 +54,4 @@ int WINAPI WinMain_(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
     return 0;
 }
+#endif

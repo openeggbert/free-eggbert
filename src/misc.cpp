@@ -86,8 +86,10 @@ int Random(int min, int max)
     return (int)n;
 }
 
+#ifdef WINELIB
 // Declare _pgmptr to mimic the Windows CRT version
 extern char _pgmptr[MAX_PATH];
+#endif
 
 void GetCurrentDir(char *pName, int lg)
 {

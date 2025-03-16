@@ -8,7 +8,12 @@ typedef struct IUnknown IUnknown;
 #include <stdio.h>
 //#include <ddraw.h>
 
+#ifdef WINELIB
 #include "direct.h"
+#else
+#include <direct.h>
+#endif
+
 #include "def.h"
 #include "resource.h"
 //#include "pixmap.h"
@@ -2066,7 +2071,8 @@ void CEvent::ReadInput()
 		joy.dwSize = 52;
 		joy.dwFlags = 255;
 
-		#ifdef joystick
+		#ifndef WINELIB
+
 		joyPos = joyGetPosEx(bJoyID, &joy);
 
 		if (joyPos == 0)
@@ -4730,7 +4736,7 @@ BOOL CEvent::ChangePhase(UINT phase)
 		char temp[_MAX_FNAME];
 
 		m_nbChoices = 0;
-		hFile = my_findfirst("\\User\\*.xch", &fBuffer);
+		hFile = _findfirst("\\User\\*.xch", &fBuffer);
 		if (hFile != -1)
 		{
 			do
@@ -4830,7 +4836,11 @@ BOOL CEvent::ChangePhase(UINT phase)
 		int numDevs;
 		char pBuff[400];
 		DescInfo* info;
-		numDevs = 1;//joyGetNumDevs();
+#ifndef WINELIB
+		numDevs = joyGetNumDevs();
+#else
+		numDevs = 1;
+#endif
 		/*
 		if (numDevs > 0)
 		{

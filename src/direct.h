@@ -1,3 +1,5 @@
+#ifdef WINELIB
+
 #ifndef _DIRECT_H_
 #define _DIRECT_H_
 
@@ -26,7 +28,7 @@ struct _finddata_t {
     unsigned long attrib; // For this example, we ignore file attributes
 };
 
-int my_findfirst(const std::string& pattern, _finddata_t* fBuffer);
+int _findfirst(const std::string& pattern, _finddata_t* fBuffer);
 
 int _findnext(int hFile, struct _finddata_t* fBuffer);
 
@@ -38,4 +40,5 @@ int _findnext(int hFile, struct _finddata_t *fBuffer);
 
 int _mkdir(const char* path);
 
+#endif
 #endif
