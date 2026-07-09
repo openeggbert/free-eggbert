@@ -663,7 +663,7 @@ BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 	dwReturn = mciSendCommand(0,
 		MCI_OPEN,
 		MCI_OPEN_TYPE_ID | MCI_OPEN_TYPE,
-		(DWORD)(LPVOID)&mciOpenParms);
+		(DWORD_PTR)(LPVOID)&mciOpenParms);
 	if (dwReturn != 0)
 	{
 		OutputDebug("PlayCDAudio-1\n");
@@ -683,7 +683,7 @@ BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 	dwReturn = mciSendCommand(mciOpenParms.wDeviceID,
 		MCI_SET,
 		MCI_SET_TIME_FORMAT,
-		(DWORD)(LPVOID)&mciSetParms);
+		(DWORD_PTR)(LPVOID)&mciSetParms);
 
 	if (dwReturn != 0)
 	{
@@ -694,13 +694,13 @@ BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 		return FALSE;
 	}
 
-	mciPlayParms.dwCallback = (DWORD)(LPVOID)hWnd;
+	mciPlayParms.dwCallback = (DWORD_PTR)(LPVOID)hWnd;
 	mciPlayParms.dwFrom = track;
 	mciPlayParms.dwTo = track + 1;
 	dwReturn = mciSendCommand(m_MidiDeviceID,
 		MCI_PLAY,
 		MCI_TRACK | MCI_NOTIFY | MCI_WAIT,
-		(DWORD)(LPVOID)&mciPlayParms);
+		(DWORD_PTR)(LPVOID)&mciPlayParms);
 
 	if (dwReturn != 0)
 	{
