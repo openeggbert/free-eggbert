@@ -144,6 +144,7 @@ if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
     if(NOT ANDROID)
         free_eggbert_copy_sdl_runtime(${_free_eggbert_target})
         free_eggbert_copy_mingw_runtime(${_free_eggbert_target})
+        free_eggbert_copy_soundfont(${_free_eggbert_target})
     endif()
 
 else()

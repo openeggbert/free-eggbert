@@ -73,6 +73,31 @@ function(free_eggbert_copy_sdl_runtime target_name)
         endif()
     endforeach()
 endfunction()
+function(free_eggbert_copy_soundfont target_name)
+    # Emscripten and Android package/mount assets their own way (see README.md).
+    if(EMSCRIPTEN OR ANDROID)
+        return()
+    endif()
+    set(_soundfont_src "${CMAKE_SOURCE_DIR}/assets/soundfont/default.sf2")
+    if(NOT EXISTS "${_soundfont_src}")
+        return()
+    endif()
+    # Deployed to two locations because different launch methods use different
+    # process working directories, and free-api's SoundFont lookup is CWD-relative:
+    #   - next to the built executable (running "./SPEEDY_BLUPI_WINDOWS" from its own dir,
+    #     or a Steam "Start In" shortcut pointed at the exe's directory)
+    #   - at the top of the CMake build directory (CLion's default run-configuration CWD)
+    foreach(_dest_dir IN ITEMS "$<TARGET_FILE_DIR:${target_name}>" "${CMAKE_BINARY_DIR}")
+        add_custom_command(TARGET ${target_name} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory
+                "${_dest_dir}/assets/soundfont"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${_soundfont_src}"
+                "${_dest_dir}/assets/soundfont/default.sf2"
+            COMMENT "Deploying default MIDI SoundFont to ${_dest_dir}"
+            VERBATIM)
+    endforeach()
+endfunction()
 function(free_eggbert_copy_mingw_runtime target_name)
     # Not applicable on Emscripten.
     if(EMSCRIPTEN)

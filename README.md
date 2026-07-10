@@ -115,6 +115,20 @@ cmake -S . -B build -DFREE_USE_SYSTEM_SDL=ON
  - IMAGE16
  - SOUND
 
+### MIDI Music SoundFont
+
+On non-Windows platforms (Linux, incl. **Steam Deck**, Web, Android), MIDI
+music is rendered by `free-api`'s TinySoundFont-based backend instead of the
+Windows MCI sequencer, and needs a `.sf2` SoundFont file to synthesize audio.
+
+A free, redistributable default — **GeneralUser GS** by S. Christian Collins —
+is vendored at [`assets/soundfont/default.sf2`](assets/soundfont/default.sf2)
+(see [`assets/soundfont/README.md`](assets/soundfont/README.md) for license
+and attribution), so MIDI music works out of the box with no extra setup.
+The build copies it next to the built executable automatically. To use a
+different SoundFont, set the `FREE_API_SOUNDFONT` environment variable to its
+path.
+
 ## Development Environment - Visual Studio
 
 ### Requirements
